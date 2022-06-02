@@ -19,8 +19,6 @@ const LoginForm = ({usersData})=>{
             .then((userCredential)=>{
                 const user = userCredential.user;
                 let useremail = user.email;
-                console.log("user"+ useremail);
-                console.log(usersData)
                 usersData.map((item)=>{
                     if(item.email===useremail){
                         // console.log("email matched");

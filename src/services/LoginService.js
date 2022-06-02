@@ -1,6 +1,6 @@
 import { db } from "../firebase.config";
 
-import {collection,getDocs,getDoc,updateDoc,deleteDoc,doc} from "firebase/firestore";
+import {collection,getDocs} from "firebase/firestore";
 
 const adminRef = collection(db, "users");
 class LoginService {
