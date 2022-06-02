@@ -1,14 +1,33 @@
 import BookService from "../services/BookService";
-import { useEffect,useState } from "react";
+import BooksContext from "../context/BooksContext";
+import { useEffect,useState, useContext } from "react";
+import { toast } from "react-toastify";
 
 const BooksAssigned =()=>{
     const [booksAssigned,setBooksAssigned] = useState([]);
+    const {booksData} = useContext(BooksContext);
+    // console.log(booksData)
     useEffect(()=>{
         getAllBooksAssigned();
     },[])
     const getAllBooksAssigned = async()=>{
         const response = await BookService.getAllAssigned();
         setBooksAssigned(response.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    }
+    const returnHandle =async(id,title)=>{
+        console.log(id, title);
+        let bookId="";
+        booksData.map((item)=>{if(item.title===title){bookId = item.id}})
+        let value={available: true,}
+        try{
+            await BookService.updateBookDetail(bookId,value);
+            await BookService.deleteAssignedBook(id);
+            toast.success("Updated Successfully");
+        }
+        catch(err){
+            toast.error("Error While accepting")
+        }
+        getAllBooksAssigned();
     }
     return (
         <>
@@ -38,7 +57,7 @@ const BooksAssigned =()=>{
                                 <td className="px-6 py-4">{item.urgency}</td>
                                 <td className="px-6 py-4">{item.comment}</td>
                                 <td className="px-6 py-4 flex">
-                                <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mx-2">Returned</button>
+                                <button onClick={()=>returnHandle(item.id, item.title)} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mx-2">Returned</button>
                                 </td>
                             </tr>
                         ))

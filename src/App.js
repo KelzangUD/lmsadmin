@@ -1,3 +1,4 @@
+import { BooksProvider } from './context/BooksContext';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ToastContainer} from 'react-toastify';
@@ -8,11 +9,13 @@ import Header from './layout/Header';
 import Home from './pages/Home';
 import BookRequested from './pages/BooksRequested';
 import BooksAssigned from './pages/BooksAssigned';
+import AddBook from './pages/AddBook';
 import {useAuthStatus} from './hooks/useAuthStatus';
 
 function App() {
   const {loggedIn} = useAuthStatus();
   return (
+    <BooksProvider>
     <div className="App">
       <div>
         <Router>
@@ -26,6 +29,7 @@ function App() {
                 <Route path='/home' element={<Home/>} />
                 <Route path='/booksRequested' element={<BookRequested/>}/>
                 <Route path='/booksAssigned' element={<BooksAssigned/>}/>
+                <Route path='/addBook' element={<AddBook/>}/>
             </Routes>      
             </main>
             </main>
@@ -33,6 +37,7 @@ function App() {
         </div>
         <ToastContainer />
     </div>
+    </BooksProvider>
   );
 }
 

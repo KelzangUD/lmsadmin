@@ -42,6 +42,10 @@ class BookDataService {
     assignedBooks = (newBook) => {
         return addDoc(assignedBook, newBook);
     };
+    deleteAssignedBook = (id) => {
+        const bookDoc = doc(db, "booksAssigned", id);
+        return deleteDoc(bookDoc);
+    };
 }
 
 export default new BookDataService();

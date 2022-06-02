@@ -1,6 +1,7 @@
 import { getAuth } from 'firebase/auth';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import { toast } from 'react-toastify';
+import LinkUi from '../ui/LinkUi';
 
 import {IoIosLogOut} from 'react-icons/io';
 const Header = ()=>{
@@ -15,12 +16,12 @@ const Header = ()=>{
         <>
             <header className="mb-8">
                 <div className='float-left'>
-                <Link to="/home" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mx-2">Home</Link>
+                <LinkUi to={"/home"} title={"Home"}/>
                 </div>
                 <div className='flex float-right'>
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mx-2">Add Book</button>
-                <Link to="/booksRequested" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mx-2">Requested Book</Link>
-                <Link to="/booksAssigned" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mx-2">Assigned Book</Link>
+                <LinkUi to={"/addbook"} title={"Add Book"}/>
+                <LinkUi to={"/booksRequested"} title={"Requested Book"}/>
+                <LinkUi to={"/booksAssigned"} title={"Assigned Book"}/>
                 <button className="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-full inline-flex items-center" onClick={logoutHandle}><IoIosLogOut className='mr-2'/>Log Out</button>
                 </div>
             </header>

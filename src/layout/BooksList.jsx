@@ -1,16 +1,8 @@
-import BookService from "../services/BookService";
-
-import { useEffect,useState } from "react";
+import BooksContext from "../context/BooksContext";
+import { useContext } from "react";
 const BooksList = ()=>{
-    const [bookData, setBookData] = useState([]);
-    useEffect(()=>{
-        getAllBook();
-    },[])
-    const getAllBook = async()=>{
-        const response = await BookService.getAllBooks();
-        setBookData(response.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    }
-    // console.log(bookData);
+    const {booksData} = useContext(BooksContext);
+
     return (
         <>
             <h1 className="flex">BOOKS LIST</h1>
@@ -27,7 +19,7 @@ const BooksList = ()=>{
             </thead>
             <tbody>
                     {
-                        bookData.map((item, index)=>(
+                        booksData.map((item, index)=>(
                             <tr key={item.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                 <th scope="row" className="px-6 py-4">{index+1}</th>
                                 <th scope="row" className="px-6 py-4">{item.title}</th>
